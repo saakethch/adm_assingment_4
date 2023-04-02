@@ -3,7 +3,7 @@ import streamlit as st
 import openai
 import config
 import time 
-openai.api_key = config.api_keys["OPENAI_API_KEY"]
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 def generate_image(image_type):
     response = openai.Image.create(
     prompt= image_type,
