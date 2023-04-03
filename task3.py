@@ -5,7 +5,6 @@ from pathlib import Path
 import streamlit as st
 import pinecone
 import torch
-import config
 import torchvision
 from torchvision.transforms import (
     Compose, 
@@ -30,7 +29,7 @@ def task3():
         img = Image.open(uploaded_file)
         uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", "_") + uploaded_file.name
         img.save(uploaded_img_path)
-        pc_api_key = config.api_keys["PINECONE_API_KEY"]
+        pc_api_key = st.secrets["PINECONE_API_KEY"]
         pinecone.init(api_key=pc_api_key, environment="eu-west1-gcp")
         model = torchvision.models.squeezenet1_1(pretrained=True).eval()
         index = pinecone.Index("pinecone-image-search")
